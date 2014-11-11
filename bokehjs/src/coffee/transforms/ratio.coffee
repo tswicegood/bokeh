@@ -1,32 +1,29 @@
-define [
-  "common/continuum_view"
-  "common/collection",
-  "common/has_parent",
-], (ContinuumView, Collection, HasParent) ->
+ContinuumView = require "common/continuum_view"
+Collection = require "common/collection"
+HasParent = require "common/has_parent"
 
-  class RatioView extends ContinuumView
-    attributes:
-      class: "RatioView"
+class RatioView extends ContinuumView
+  attributes:
+    class: "RatioView"
 
-    initialize: (options) ->
-      super(options)
-      @render_init()
+  initialize: (options) ->
+    super(options)
+    @render_init()
 
-    delegateEvents: (events) ->
-      super(events)
-      "pass"
+  delegateEvents: (events) ->
+    super(events)
+    "pass"
 
-    render_init: () ->
-      @$el.html("")
+  render_init: () ->
+    @$el.html("")
 
-  class Ratio extends HasParent
-    type : "Ratio"
-    default_view: RatioView
+class Ratio extends HasParent
+  type : "Ratio"
+  default_view: RatioView
 
-  class Ratios extends Collection
-    model : Ratio
+class Ratios extends Collection
+  model : Ratio
 
-  return {
-    "Model" : Ratio
-    "Collection" : new Ratios()
-  }
+module.exports =
+  Model: Ratio
+  Collection: new Ratios()

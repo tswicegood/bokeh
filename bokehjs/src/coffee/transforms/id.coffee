@@ -1,32 +1,29 @@
-define [
-  "common/continuum_view"
-  "common/collection",
-  "common/has_parent",
-], (ContinuumView, Collection, HasParent) ->
+ContinuumView = require "common/continuum_view"
+Collection = require "common/collection"
+HasParent = require "common/has_parent"
 
-  class IdView extends ContinuumView
-    attributes:
-      class: "IdView"
+class IdView extends ContinuumView
+  attributes:
+    class: "IdView"
 
-    initialize: (options) ->
-      super(options)
-      @render_init()
+  initialize: (options) ->
+    super(options)
+    @render_init()
 
-    delegateEvents: (events) ->
-      super(events)
-      "pass"
+  delegateEvents: (events) ->
+    super(events)
+    "pass"
 
-    render_init: () ->
-      @$el.html("")
+  render_init: () ->
+    @$el.html("")
 
-  class Id extends HasParent
-    type : "Id"
-    default_view: IdView
+class Id extends HasParent
+  type : "Id"
+  default_view: IdView
 
-  class Ids extends Collection
-    model : Id
+class Ids extends Collection
+  model : Id
 
-  return {
-    "Model" : Id
-    "Collection" : new Ids()
-  }
+module.exports =
+  Model: Id
+  Collection: new Ids()

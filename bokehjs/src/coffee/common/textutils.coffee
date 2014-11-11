@@ -1,35 +1,31 @@
+cache = {}
 
-define [], () ->
+getTextHeight = (font) ->
+  if cache[font]?
+    return cache[font]
+  text = $('<span>Hg</span>').css({ font: font })
+  block = $('<div style="display: inline-block; width: 1px; height: 0px;"></div>')
 
-  cache = {}
+  div = $('<div></div>')
+  div.append(text, block)
 
-  getTextHeight = (font) ->
-    if cache[font]?
-      return cache[font]
-    text = $('<span>Hg</span>').css({ font: font })
-    block = $('<div style="display: inline-block; width: 1px; height: 0px;"></div>')
+  body = $('body')
+  body.append(div)
 
-    div = $('<div></div>')
-    div.append(text, block)
+  try
+    result = {}
 
-    body = $('body')
-    body.append(div)
+    block.css({ verticalAlign: 'baseline' })
+    result.ascent = block.offset().top - text.offset().top
 
-    try
-      result = {}
+    block.css({ verticalAlign: 'bottom' })
+    result.height = block.offset().top - text.offset().top
 
-      block.css({ verticalAlign: 'baseline' })
-      result.ascent = block.offset().top - text.offset().top
+    result.descent = result.height - result.ascent
+  finally
+    div.remove()
+  cache[font] = result
+  return result
 
-      block.css({ verticalAlign: 'bottom' })
-      result.height = block.offset().top - text.offset().top
-
-      result.descent = result.height - result.ascent
-    finally
-      div.remove()
-    cache[font] = result
-    return result
-
-  return {
-    "getTextHeight": getTextHeight
-  }
+moduie.exports =
+  getTextHeight: getTextHeight

@@ -1,53 +1,50 @@
-define [
-  "underscore",
-  "renderer/properties",
-  "./glyph",
-], (_, Properties, Glyph) ->
+_ = require "underscore"
+Properties = require "renderer/properties"
+Glyph = require "./glyph"
 
-  class LineView extends Glyph.View
+class LineView extends Glyph.View
 
-    _fields: ['x', 'y']
-    _properties: ['line']
+  _fields: ['x', 'y']
+  _properties: ['line']
 
-    _map_data: () ->
-      [@sx, @sy] = @renderer.map_to_screen(@x, @glyph.x.units, @y, @glyph.y.units)
+  _map_data: () ->
+    [@sx, @sy] = @renderer.map_to_screen(@x, @glyph.x.units, @y, @glyph.y.units)
 
-    _render: (ctx, indices) ->
-      drawing = false
-      @props.line.set(ctx, @props)
+  _render: (ctx, indices) ->
+    drawing = false
+    @props.line.set(ctx, @props)
 
-      for i in indices
-        if isNaN(@sx[i] + @sy[i]) and drawing
-          ctx.stroke()
-          ctx.beginPath()
-          drawing = false
-          continue
-
-        if drawing
-          ctx.lineTo(@sx[i], @sy[i])
-        else
-          ctx.beginPath()
-          ctx.moveTo(@sx[i], @sy[i])
-          drawing = true
+    for i in indices
+      if isNaN(@sx[i] + @sy[i]) and drawing
+        ctx.stroke()
+        ctx.beginPath()
+        drawing = false
+        continue
 
       if drawing
-        ctx.stroke()
+        ctx.lineTo(@sx[i], @sy[i])
+      else
+        ctx.beginPath()
+        ctx.moveTo(@sx[i], @sy[i])
+        drawing = true
 
-    draw_legend: (ctx, x0, x1, y0, y1) ->
-      @_generic_line_legend(ctx, x0, x1, y0, y1)
+    if drawing
+      ctx.stroke()
 
-  class Line extends Glyph.Model
-    default_view: LineView
-    type: 'Line'
+  draw_legend: (ctx, x0, x1, y0, y1) ->
+    @_generic_line_legend(ctx, x0, x1, y0, y1)
 
-    display_defaults: ->
-      return _.extend {}, super(), @line_defaults
+class Line extends Glyph.Model
+  default_view: LineView
+  type: 'Line'
 
-  class Lines extends Glyph.Collection
-    model: Line
+  display_defaults: ->
+    return _.extend {}, super(), @line_defaults
 
-  return {
-    Model: Line
-    View: LineView
-    Collection: new Lines()
-  }
+class Lines extends Glyph.Collection
+  model: Line
+
+module.exports =
+  Model: Line
+  View: LineView
+  Collection: new Lines()

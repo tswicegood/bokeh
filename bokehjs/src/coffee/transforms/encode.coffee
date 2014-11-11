@@ -1,32 +1,29 @@
-define [
-  "common/continuum_view"
-  "common/collection",
-  "common/has_parent",
-], (ContinuumView, Collection, HasParent) ->
+ContinuumView = require "common/continuum_view"
+Collection = require "common/collection"
+HasParent = require "common/has_parent"
 
-  class EncodeView extends ContinuumView
-    attributes:
-      class: "EncodeView"
+class EncodeView extends ContinuumView
+  attributes:
+    class: "EncodeView"
 
-    initialize: (options) ->
-      super(options)
-      @render_init()
+  initialize: (options) ->
+    super(options)
+    @render_init()
 
-    delegateEvents: (events) ->
-      super(events)
-      "pass"
+  delegateEvents: (events) ->
+    super(events)
+    "pass"
 
-    render_init: () ->
-      @$el.html("")
+  render_init: () ->
+    @$el.html("")
 
-  class Encode extends HasParent
-    type : "Encode"
-    default_view: EncodeView
+class Encode extends HasParent
+  type : "Encode"
+  default_view: EncodeView
 
-  class Encodes extends Collection
-    model : Encode
+class Encodes extends Collection
+  model : Encode
 
-  return {
-    "Model" : Encode
-    "Collection" : new Encodes()
-  }
+module.exports =
+  Model: Encode
+  Collection: new Encodes()

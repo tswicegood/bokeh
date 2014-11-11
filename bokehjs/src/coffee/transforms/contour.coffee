@@ -1,32 +1,29 @@
-define [
-  "common/continuum_view"
-  "common/collection",
-  "common/has_parent",
-], (ContinuumView, Collection, HasParent) ->
+ContinuumView = require "common/continuum_view"
+Collection = require "common/collection"
+HasParent = require "common/has_parent"
 
-  class ContourView extends ContinuumView
-    attributes:
-      class: "ContourView"
+class ContourView extends ContinuumView
+  attributes:
+    class: "ContourView"
 
-    initialize: (options) ->
-      super(options)
-      @render_init()
+  initialize: (options) ->
+    super(options)
+    @render_init()
 
-    delegateEvents: (events) ->
-      super(events)
-      "pass"
+  delegateEvents: (events) ->
+    super(events)
+    "pass"
 
-    render_init: () ->
-      @$el.html("")
+  render_init: () ->
+    @$el.html("")
 
-  class Contour extends HasParent
-    type : "Contour"
-    default_view: ContourView
+class Contour extends HasParent
+  type : "Contour"
+  default_view: ContourView
 
-  class Contours extends Collection
-    model : Contour
+class Contours extends Collection
+  model : Contour
 
-  return {
-    "Model" : Contour
-    "Collection" : new Contours()
-  }
+module.exports =
+  Model: Contour
+  Collection: new Contours()

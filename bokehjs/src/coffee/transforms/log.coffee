@@ -1,32 +1,29 @@
-define [
-  "common/continuum_view"
-  "common/collection",
-  "common/has_parent",
-], (ContinuumView, Collection, HasParent) ->
+ContinuumView = require "common/continuum_view"
+Collection = require "common/collection"
+HasParent = require "common/has_parent"
 
-  class LogView extends ContinuumView
-    attributes:
-      class: "LogView"
+class LogView extends ContinuumView
+  attributes:
+    class: "LogView"
 
-    initialize: (options) ->
-      super(options)
-      @render_init()
+  initialize: (options) ->
+    super(options)
+    @render_init()
 
-    delegateEvents: (events) ->
-      super(events)
-      "pass"
+  delegateEvents: (events) ->
+    super(events)
+    "pass"
 
-    render_init: () ->
-      @$el.html("")
+  render_init: () ->
+    @$el.html("")
 
-  class Log extends HasParent
-    type : "Log"
-    default_view: LogView
+class Log extends HasParent
+  type : "Log"
+  default_view: LogView
 
-  class Logs extends Collection
-    model : Log
+class Logs extends Collection
+  model : Log
 
-  return {
-    "Model" : Log
-    "Collection" : new Logs()
-  }
+module.exports =
+  Model: Log
+  Collection: new Logs()

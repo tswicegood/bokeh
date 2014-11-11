@@ -1,28 +1,27 @@
+_ = require "underscore"
+HasProperties = require "./has_properties"
+Logging = require "./logging"
 
-define [
-  "underscore"
-  "./has_properties"
-  "./logging"
-], (_, HasProperties, Logging) ->
+logger = Logging.logger
 
-  logger = Logging.logger
+class Selector extends HasProperties
+  type: 'Selector'
 
-  class Selector extends HasProperties
-    type: 'Selector'
+  update: (indices, final, append) ->
+    @set('timestamp', new Date())
+    @set('final', final)
+    if append
+      indices = _.union(@get('indices'), indices)
+    @set('indices', indices)
 
-    update: (indices, final, append) ->
-      @set('timestamp', new Date())
-      @set('final', final)
-      if append
-        indices = _.union(@get('indices'), indices)
-      @set('indices', indices)
+  clear: () ->
+    @set('timestamp', new Date())
+    @set('final', true)
+    @set('indices', [])
 
-    clear: () ->
-      @set('timestamp', new Date())
-      @set('final', true)
-      @set('indices', [])
+  defaults: ->
+    return _.extend {}, super(), {
+      indices: []
+    }
 
-    defaults: ->
-      return _.extend {}, super(), {
-        indices: []
-      }
+module.exports = Selector

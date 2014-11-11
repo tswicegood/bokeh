@@ -1,32 +1,29 @@
-define [
-  "common/continuum_view"
-  "common/collection",
-  "common/has_parent"
-], (ContinuumView, Collection, HasParent) ->
+ContinuumView = require "common/continuum_view"
+Collection = require "common/collection"
+HasParent = require "common/has_parent"
 
-  class HDAlphaView extends ContinuumView
-    attributes:
-      class: "HDAlphaView"
+class HDAlphaView extends ContinuumView
+  attributes:
+    class: "HDAlphaView"
 
-    initialize: (options) ->
-      super(options)
-      @render_init()
+  initialize: (options) ->
+    super(options)
+    @render_init()
 
-    delegateEvents: (events) ->
-      super(events)
-      "pass"
+  delegateEvents: (events) ->
+    super(events)
+    "pass"
 
-    render_init: () ->
-      @$el.html("")
+  render_init: () ->
+    @$el.html("")
 
-  class HDAlpha extends HasParent
-    type : "HDAlpha"
-    default_view: HDAlphaView
+class HDAlpha extends HasParent
+  type : "HDAlpha"
+  default_view: HDAlphaView
 
-  class HDAlphas extends Collection
-    model : HDAlpha
+class HDAlphas extends Collection
+  model : HDAlpha
 
-  return {
-    "Model" : HDAlpha
-    "Collection" : new HDAlphas()
-  }
+module.exports =
+  Model: HDAlpha
+  Collection: new HDAlphas()

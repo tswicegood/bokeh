@@ -1,32 +1,29 @@
-define [
-  "common/continuum_view"
-  "common/collection",
-  "common/has_parent"
-], (ContinuumView, Collection, HasParent) ->
+ContinuumView = require "common/continuum_view"
+Collection = require "common/collection"
+HasParent = require "common/has_parent"
 
-  class CuberootView extends ContinuumView
-    attributes:
-      class: "CuberootView"
+class CuberootView extends ContinuumView
+  attributes:
+    class: "CuberootView"
 
-    initialize: (options) ->
-      super(options)
-      @render_init()
+  initialize: (options) ->
+    super(options)
+    @render_init()
 
-    delegateEvents: (events) ->
-      super(events)
-      "pass"
+  delegateEvents: (events) ->
+    super(events)
+    "pass"
 
-    render_init: () ->
-      @$el.html("")
+  render_init: () ->
+    @$el.html("")
 
-  class Cuberoot extends HasParent
-    type : "Cuberoot"
-    default_view: CuberootView
+class Cuberoot extends HasParent
+  type : "Cuberoot"
+  default_view: CuberootView
 
-  class Cuberoots extends Collection
-    model : Cuberoot
+class Cuberoots extends Collection
+  model : Cuberoot
 
-  return {
-    "Model" : Cuberoot
-    "Collection" : new Cuberoots()
-  }
+module.exports =
+  Model: Cuberoot
+  Collection: new Cuberoots()

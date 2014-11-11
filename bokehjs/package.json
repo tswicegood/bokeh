@@ -2,29 +2,71 @@
   "name": "bokehjs",
   "version": "0.6.1",
   "description": "Interactive, novel data visualization",
-  "keywords": ["bokeh", "datavis", "dataviz", "visualization", "plotting", "plot", "graph"],
+  "keywords": [
+    "bokeh",
+    "datavis",
+    "dataviz",
+    "visualization",
+    "plotting",
+    "plot",
+    "graph"
+  ],
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "git://github.com/bokeh/bokeh.git"
-    },
+  },
   "devDependencies": {
-    "requirejs": "^2.1.11",
+    "backbone": "^1.1.0",
+    "browserify": "^6.2.0",
+    "browserify-eco": "^0.2.4",
+    "browserify-shim": "^3.8.0",
+    "coffeeify": "^0.7.0",
     "grunt": "^0.4.4",
     "grunt-cli": "^0.1.13",
-    "grunt-contrib-coffee": "^0.7.0",
-    "grunt-contrib-watch": "^0.5.3",
-    "grunt-contrib-less": "^0.11.0",
-    "grunt-contrib-requirejs": "^0.4.3",
-    "grunt-contrib-cssmin": "^0.6.2",
-    "grunt-contrib-concat": "^0.3.0",
-    "grunt-contrib-copy": "^0.4.1",
     "grunt-contrib-clean": "^0.5.0",
-    "grunt-contrib-qunit": "^0.4.0",
+    "grunt-contrib-coffee": "^0.7.0",
+    "grunt-contrib-concat": "^0.3.0",
     "grunt-contrib-connect": "^0.6.0",
+    "grunt-contrib-copy": "^0.4.1",
+    "grunt-contrib-cssmin": "^0.6.2",
+    "grunt-contrib-less": "^0.11.0",
+    "grunt-contrib-qunit": "^0.4.0",
+    "grunt-contrib-requirejs": "^0.4.3",
+    "grunt-contrib-watch": "^0.5.3",
     "grunt-eco": "^0.1.1",
     "grunt-groc": "^0.4.5",
     "grunt-lesslint": "^1.1.12",
-    "phantomjs": "^1.9.7"
+    "gulp": "^3.8.10",
+    "gulp-coffeeify": "^0.1.2",
+    "gulp-eco-template": "^0.1.0",
+    "gulp-util": "^3.0.1",
+    "phantomjs": "^1.9.7",
+    "requirejs": "^2.1.11",
+    "underscore": "^1.5.2",
+    "vinyl-source-stream": "^1.0.0"
+  },
+  "browserify": {
+    "extensions": [
+      "coffee",
+      "js",
+      "eco"
+    ],
+    "transform": [
+      "browserify-shim",
+      "browserify-eco"
+    ]
+  },
+  "browser": {
+    "bootstrap/modal": "./src/vendor/bootstrap-3.1.1/js/modal.js"
+  },
+  "browserify-shim": {},
+  "dependencies": {
+    "jquery": "^2.1.1",
+    "jquery-ui": "^1.10.5",
+    "jsnlog": "^2.7.6",
+    "kiwi": "^0.2.2",
+    "sprintf": "^0.1.4",
+    "timezone": "0.0.38"
   }
 }

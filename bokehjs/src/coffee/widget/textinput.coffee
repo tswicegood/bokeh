@@ -1,52 +1,49 @@
-define [
-  "common/collection",
-  "common/build_views"
-  "common/continuum_view"
-  "common/has_parent"
-  "common/logging"
-  "./textinputtemplate"
-], (Collection, build_views, ContinuumView, HasParent, Logging, template) ->
+Collection = require "common/collection"
+build_views = require "common/build_views"
+ContinuumView = require "common/continuum_view"
+HasParent = require "common/has_parent"
+Logging = require "common/logging"
+template = require "./textinputtemplate.eco"
 
-  logger = Logging.logger
+logger = Logging.logger
 
-  class TextInputView extends ContinuumView
-    tagName : "div"
-    attributes :
-       class : "bk-widget-form-group"
-    template : template
-    events :
-      "change input" : "change_input"
+class TextInputView extends ContinuumView
+  tagName : "div"
+  attributes :
+     class : "bk-widget-form-group"
+  template : template
+  events :
+    "change input" : "change_input"
 
-    change_input : () ->
-      value = @$('input').val()
-      logger.debug("textinput: value = #{value}")
-      @mset('value', value)
-      @model.save()
+  change_input : () ->
+    value = @$('input').val()
+    logger.debug("textinput: value = #{value}")
+    @mset('value', value)
+    @model.save()
 
-    initialize : (options) ->
-      super(options)
-      @render()
-      @listenTo(@model, 'change', @render)
+  initialize : (options) ->
+    super(options)
+    @render()
+    @listenTo(@model, 'change', @render)
 
-    render : () ->
-      @$el.html(@template(@model.attributes))
-      return @
+  render : () ->
+    @$el.html(@template(@model.attributes))
+    return @
 
-  class TextInput extends HasParent
-    type : "TextInput"
-    default_view : TextInputView
+class TextInput extends HasParent
+  type : "TextInput"
+  default_view : TextInputView
 
-    defaults: ->
-      return _.extend {}, super(), {
-        name: ""
-        value: ""
-        title: ""
-      }
+  defaults: ->
+    return _.extend {}, super(), {
+      name: ""
+      value: ""
+      title: ""
+    }
 
-  class TextInputs extends Collection
-    model : TextInput
+class TextInputs extends Collection
+  model : TextInput
 
-  return {
-    Model : TextInput
-    Collection : new TextInputs()
-  }
+module.exports =
+  Model: TextInput
+  Collection: new TextInputs()

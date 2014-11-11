@@ -1,32 +1,29 @@
-define [
-  "common/continuum_view"
-  "common/collection",
-  "common/has_parent"
-], (ContinuumView, Collection, HasParent) ->
+ContinuumView = require "common/continuum_view"
+Collection = require "common/collection"
+HasParent = require "common/has_parent"
 
-  class CountCategoriesView extends ContinuumView
-    attributes:
-      class: "CountCategoriesView"
+class CountCategoriesView extends ContinuumView
+  attributes:
+    class: "CountCategoriesView"
 
-    initialize: (options) ->
-      super(options)
-      @render_init()
+  initialize: (options) ->
+    super(options)
+    @render_init()
 
-    delegateEvents: (events) ->
-      super(events)
-      "pass"
+  delegateEvents: (events) ->
+    super(events)
+    "pass"
 
-    render_init: () ->
-      @$el.html("")
+  render_init: () ->
+    @$el.html("")
 
-  class CountCategories extends HasParent
-    type : "CountCategories"
-    default_view: CountCategoriesView
+class CountCategories extends HasParent
+  type : "CountCategories"
+  default_view: CountCategoriesView
 
-  class CountCategoriess extends Collection
-    model : CountCategories
+class CountCategoriess extends Collection
+  model : CountCategories
 
-  return {
-    "Model" : CountCategories
-    "Collection" : new CountCategoriess()
-  }
+module.exports =
+  Model: CountCategories
+  Collection: new CountCategoriess()

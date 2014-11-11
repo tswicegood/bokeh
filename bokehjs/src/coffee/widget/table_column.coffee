@@ -1,18 +1,15 @@
-define [
-  "underscore"
-  "jquery"
-  "common/collection"
-  "common/has_properties"
-], (_, $, Collection, HasProperties) ->
+_ = require "underscore"
+$ = require "jquery"
+Collection = require "common/collection"
+HasProperties = require "common/has_properties"
 
-  class TableColumn extends HasProperties
-    type: 'TableColumn'
-    default_view: null
+class TableColumn extends HasProperties
+  type: 'TableColumn'
+  default_view: null
 
-  class TableColumns extends Collection
-    model: TableColumn
+class TableColumns extends Collection
+  model: TableColumn
 
-  return {
-    Model : TableColumn
-    Collection: new TableColumns()
-  }
+module.exports =
+  Model : TableColumn
+  Collection: new TableColumns()

@@ -1,32 +1,29 @@
-define [
-  "common/continuum_view"
-  "common/collection",
-  "common/has_parent",
-], (ContinuumView, Collection, HasParent) ->
+ContinuumView = require "common/continuum_view"
+Collection = require "common/collection"
+HasParent = require "common/has_parent"
 
-  class InterpolateView extends ContinuumView
-    attributes:
-      class: "InterpolateView"
+class InterpolateView extends ContinuumView
+  attributes:
+    class: "InterpolateView"
 
-    initialize: (options) ->
-      super(options)
-      @render_init()
+  initialize: (options) ->
+    super(options)
+    @render_init()
 
-    delegateEvents: (events) ->
-      super(events)
-      "pass"
+  delegateEvents: (events) ->
+    super(events)
+    "pass"
 
-    render_init: () ->
-      @$el.html("")
+  render_init: () ->
+    @$el.html("")
 
-  class Interpolate extends HasParent
-    type : "Interpolate"
-    default_view: InterpolateView
+class Interpolate extends HasParent
+  type : "Interpolate"
+  default_view: InterpolateView
 
-  class Interpolates extends Collection
-    model : Interpolate
+class Interpolates extends Collection
+  model : Interpolate
 
-  return {
-    "Model" : Interpolate
-    "Collection" : new Interpolates()
-  }
+module.exports =
+  Model: Interpolate
+  Collection: new Interpolates()

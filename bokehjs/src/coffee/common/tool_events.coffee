@@ -1,19 +1,15 @@
+Backbone = require "backbone"
+HasProperties = require "common/has_properties"
+Logging = require "common/logging"
 
-define [
-  "backbone"
-  "common/has_properties"
-  "common/logging"
-], (Backbone, HasProperties, Logging) ->
+logger = Logging.logger
 
-  logger = Logging.logger
+class ToolEvents extends HasProperties
+   type: 'ToolEvents'
 
-  class ToolEvents extends HasProperties
-     type: 'ToolEvents'
+class ToolEventsCollection extends Backbone.Collection
+  model : ToolEvents
 
-  class ToolEventsCollection extends Backbone.Collection
-    model : ToolEvents
-
-  return {
-    "Model": ToolEvents
-    "Collection": new ToolEventsCollection()
-  }
+module.exports =
+  Model: ToolEvents
+  Collection: new ToolEventsCollection()

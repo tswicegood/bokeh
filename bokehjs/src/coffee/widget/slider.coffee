@@ -1,69 +1,66 @@
-define [
-  "common/collection"
-  "underscore"
-  "common/continuum_view"
-  "common/has_parent"
-  "common/logging"
-  "./slidertemplate"
-  "jquery_ui/slider"
-], (Collection, _, ContinuumView, HasParent, Logging, slidertemplate) ->
+Collection = require "common/collection"
+_ = require "underscore"
+ContinuumView = require "common/continuum_view"
+HasParent = require "common/has_parent"
+Logging = require "common/logging"
+slidertemplate = require "./slidertemplate.eco"
+$ui_slider = require "jquery_ui/slider"
 
-  logger = Logging.logger
+logger = Logging.logger
 
-  class SliderView extends ContinuumView
-    tagName : "div"
+class SliderView extends ContinuumView
+  tagName : "div"
 
-    template : slidertemplate
+  template : slidertemplate
 
-    initialize : (options) ->
-      super(options)
-      @render()
+  initialize : (options) ->
+    super(options)
+    @render()
 
-    render : () ->
-      @$el.empty()
-      html = @template(@model.attributes)
-      @$el.html(html)
-      max = @mget('end')
-      min = @mget('start')
-      step = @mget('step') or ((max - min)/50)
-      logger.debug("slider render: min, max, step = (#{min}, #{max}, #{step})")
-      @$('.slider').slider({
-        orientation : @mget('orientation')
-        animate : "fast",
-        slide : _.throttle(@slide, 200),
-        value : @mget('value')
-        min : min,
-        max : max,
-        step : step,
-      })
-      @$( "##{ @mget('id') }" ).val( @$('.slider').slider('value') );
+  render : () ->
+    @$el.empty()
+    html = @template(@model.attributes)
+    @$el.html(html)
+    max = @mget('end')
+    min = @mget('start')
+    step = @mget('step') or ((max - min)/50)
+    logger.debug("slider render: min, max, step = (#{min}, #{max}, #{step})")
+    @$('.slider').slider({
+      orientation : @mget('orientation')
+      animate : "fast",
+      slide : _.throttle(@slide, 200),
+      value : @mget('value')
+      min : min,
+      max : max,
+      step : step,
+    })
+    @$( "##{ @mget('id') }" ).val( @$('.slider').slider('value') );
 
-    slide : (event, ui) =>
-      value = ui.value
-      logger.debug("slide value = #{value}")
-      @$( "##{ @mget('id') }" ).val( ui.value );
-      @mset('value', value)
-      @model.save()
+  slide : (event, ui) =>
+    value = ui.value
+    logger.debug("slide value = #{value}")
+    @$( "##{ @mget('id') }" ).val( ui.value );
+    @mset('value', value)
+    @model.save()
 
-  class Slider extends HasParent
-    type : "Slider"
-    default_view : SliderView
+class Slider extends HasParent
+  type : "Slider"
+  default_view : SliderView
 
-    defaults: ->
-      return _.extend {}, super(), {
-        title: ''
-        value: 0.5
-        start: 0
-        end: 1
-        step: 0
-        orientation: "horizontal"
-      }
+  defaults: ->
+    return _.extend {}, super(), {
+      title: ''
+      value: 0.5
+      start: 0
+      end: 1
+      step: 0
+      orientation: "horizontal"
+    }
 
-  class Sliders extends Collection
-    model : Slider
+class Sliders extends Collection
+  model : Slider
 
-  return {
-    Model : Slider
-    Collection : new Sliders()
-    View : SliderView
-  }
+module.exports =
+  Model : Slider
+  Collection : new Sliders()
+  View : SliderView

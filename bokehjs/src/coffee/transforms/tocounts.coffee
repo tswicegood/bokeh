@@ -1,32 +1,29 @@
-define [
-  "common/continuum_view"
-  "common/collection",
-  "common/has_parent",
-], (ContinuumView, Collection, HasParent) ->
+ContinuumView = require "common/continuum_view"
+Collection = require "common/collection"
+HasParent = require "common/has_parent"
 
-  class ToCountsView extends ContinuumView
-    attributes:
-      class: "ToCountsView"
+class ToCountsView extends ContinuumView
+  attributes:
+    class: "ToCountsView"
 
-    initialize: (options) ->
-      super(options)
-      @render_init()
+  initialize: (options) ->
+    super(options)
+    @render_init()
 
-    delegateEvents: (events) ->
-      super(events)
-      "pass"
+  delegateEvents: (events) ->
+    super(events)
+    "pass"
 
-    render_init: () ->
-      @$el.html("")
+  render_init: () ->
+    @$el.html("")
 
-  class ToCounts extends HasParent
-    type : "ToCounts"
-    default_view: ToCountsView
+class ToCounts extends HasParent
+  type : "ToCounts"
+  default_view: ToCountsView
 
-  class ToCountss extends Collection
-    model : ToCounts
+class ToCountss extends Collection
+  model : ToCounts
 
-  return {
-    "Model" : ToCounts
-    "Collection" : new ToCountss()
-  }
+module.exports =
+  Model: ToCounts
+  Collection: new ToCountss()
