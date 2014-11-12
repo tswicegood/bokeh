@@ -1,6 +1,6 @@
 _ = require "underscore"
 $ = require "jquery"
-$$1 = require "handsontable"
+# $$1 = require "jquery-handsontable"  # TODO is this needed?
 Collection = require "common/collection"
 HasProperties = require "common/has_properties"
 ContinuumView = require "common/continuum_view"

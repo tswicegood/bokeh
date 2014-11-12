@@ -3,8 +3,8 @@ $ = require "jquery"
 ContinuumView = require "common/continuum_view"
 HasProperties = require "common/has_properties"
 Collection = require "common/collection"
-SlickGrid = require "slick_grid/slick.grid"
-RowSelectionModel = require "slick_grid/plugins/slick.rowselectionmodel"
+SlickGrid = require "slickgrid/slick.grid"
+RowSelectionModel = require "slickgrid/plugins/slick.rowselectionmodel"
 $1 = require "jquery-ui/sortable"
 
 class DataProvider

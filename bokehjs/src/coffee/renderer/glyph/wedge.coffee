@@ -1,6 +1,6 @@
 _ = require "underscore"
 rbush = require "rbush"
-mathutils = require "mathutils"
+mathutils = require "common/mathutils" # TODO is this right?
 Properties = require "renderer/properties"
 Glyph = require "./glyph"
 

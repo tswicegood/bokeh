@@ -1,5 +1,5 @@
 Backbone = require "backbone"
-Hammer = require "hammer"
+Hammer = require "hammerjs"
 mousewheel = require "jquery_mousewheel"
 Logging = require "common/logging"
 
