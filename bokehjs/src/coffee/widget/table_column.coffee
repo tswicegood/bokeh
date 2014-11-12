@@ -1,7 +1,5 @@
-_ = require "underscore"
-$ = require "jquery"
-Collection = require "common/collection"
 HasProperties = require "common/has_properties"
+Collection = require "common/collection"
 
 class TableColumn extends HasProperties
   type: 'TableColumn'
@@ -11,5 +9,5 @@ class TableColumns extends Collection
   model: TableColumn
 
 module.exports =
-  Model : TableColumn
+  Model: TableColumn
   Collection: new TableColumns()

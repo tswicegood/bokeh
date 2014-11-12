@@ -1,4 +1,4 @@
-_ = require  "underscore"
+_ = require "underscore"
 Backbone = require "backbone"
 build_views = require "./build_views"
 ContinuumView = require "./continuum_view"
@@ -6,7 +6,7 @@ Collection = require "./collection"
 HasProperties = require "./has_properties"
 Logging = require "./logging"
 ToolManager = require "./tool_manager"
-plot_template = require "./plot_template.eco"
+plot_template "./plot_template.eco"
 Properties = require "renderer/properties"
 
 logger = Logging.logger
@@ -64,13 +64,13 @@ class GridToolManager extends ToolManager.Model
       if tools.length != @get('num_plots')
         continue
       proxy = new _ToolProxy({tools: tools})
-      @get('actions').tools.push(proxy)
+      @get('actions').push(proxy)
 
     for typ, tools of inspectors
       if tools.length != @get('num_plots')
         continue
       proxy = new _ToolProxy({tools: tools})
-      @get('inspectors').tools.push(proxy)
+      @get('inspectors').push(proxy)
 
     for et, info of @get('gestures')
       tools = info.tools
@@ -287,7 +287,7 @@ class GridPlot extends HasProperties
 class GridPlots extends Collection
   model: GridPlot
 
-module.exports =
+module.exports
   Model: GridPlot
   Collection: new GridPlots()
   View: GridPlotView

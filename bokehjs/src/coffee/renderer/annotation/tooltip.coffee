@@ -46,8 +46,8 @@ class TooltipView extends PlotWidget
       else
         side = 'left'
 
-    @$el.removeClass('right')
-    @$el.removeClass('left')
+    @$el.removeClass('bk-right')
+    @$el.removeClass('bk-left')
 
     if side == "right"
       @$el.addClass("left")

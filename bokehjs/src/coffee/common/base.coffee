@@ -118,6 +118,8 @@ require "widget/handson_table"
 require "widget/table_column"
 require "widget/pivot_table"
 
+require "widget/data_table"
+require "widget/table_column"
 require 'widget/paragraph'
 require 'widget/hbox'
 require 'widget/vbox'
@@ -288,6 +290,8 @@ locations =
   TableColumn:              'widget/table_column'
   PivotTable:               'widget/pivot_table'
 
+  DataTable:                "widget/data_table"
+  TableColumn:              "widget/table_column"
   Paragraph:                'widget/paragraph'
   HBox:                     'widget/hbox'
   VBox:                     'widget/vbox'

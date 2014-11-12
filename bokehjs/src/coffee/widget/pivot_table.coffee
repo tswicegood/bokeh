@@ -1,6 +1,6 @@
 _ = require "underscore"
 $ = require "jquery"
-$$1 = require "jquery_ui/sortable"
+$$1 = require "jquery-ui/sortable"
 $$2 = require "bootstrap/dropdown"
 Collection = require "common/collection"
 HasParent = require "common/has_parent"

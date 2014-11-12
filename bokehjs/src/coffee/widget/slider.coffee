@@ -4,7 +4,7 @@ ContinuumView = require "common/continuum_view"
 HasParent = require "common/has_parent"
 Logging = require "common/logging"
 slidertemplate = require "./slidertemplate.eco"
-$ui_slider = require "jquery_ui/slider"
+$ui_slider = require "jquery-ui/slider"
 
 logger = Logging.logger
 
